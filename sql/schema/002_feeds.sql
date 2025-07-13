@@ -1,10 +1,11 @@
 -- +goose Up
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS feeds (
     id UUID PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    api_key VARCHAR(64) UNIQUE NOT NULL DEFAULT encode(sha256(random()::text::bytea), 'hex')
+    url TEXT UNIQUE NOT NULL,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
 
